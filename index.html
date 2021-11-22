@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head>               
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -87,6 +87,14 @@
     </section>
   </main>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "3b8e7a8b5b1d42eb99ccb3eafd45d866"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
+
   <script>
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
@@ -102,6 +110,118 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+    errorBtns[0].addEventListener('click', function(){
+      console.log("it was logged");
+    })
+
+    errorBtns[1].addEventListener('click', function(){
+      console.error("ERROR");
+    })
+
+    errorBtns[2].addEventListener('click', function(){
+      console.count("Console Count");
+    })
+
+    errorBtns[3].addEventListener('click', function(){
+      console.warn('WARNING');
+    })
+
+    errorBtns[4].addEventListener('click', function(){
+      const x = 5;
+      const y = 3;
+      const reason = 'x is expected to be less than y';
+      console.assert(x < y, {x, y, reason});
+    })
+
+    errorBtns[5].addEventListener('click', function(){
+      console.clear();
+    })
+
+    errorBtns[6].addEventListener('click', function(){
+      console.dir(document.head);
+    })
+
+    errorBtns[7].addEventListener('click', function(){
+      console.dirxml(document);
+    })
+
+    errorBtns[8].addEventListener('click', function(){
+      console.group();
+    })
+
+    errorBtns[9].addEventListener('click', function(){
+      console.groupEnd();
+    })
+
+    errorBtns[10].addEventListener('click', function(){
+      console.table([
+        {
+          first: 'its me',
+          last: 'mario',
+        },
+        {
+          first: 'heeh',
+          last: 'uuu',
+          birthday: '18930113',
+        },
+        {
+          first: 'appe',
+          last: 'ogm',
+        }
+      ]);
+    })
+    
+    errorBtns[11].addEventListener('click', function(){
+      console.time();
+    })
+
+    errorBtns[12].addEventListener('click', function(){
+      console.timeEnd();
+    })
+
+    errorBtns[13].addEventListener('click', function(){
+      const first = () => { second(); };
+      const second = () => { third(); };
+      const third = () => { fourth(); };
+      const fourth = () => { console.trace(); };
+      first();
+    })
+
+    errorBtns[14].addEventListener('click', function(){
+      throw new Error("global errorzzzz")
+    })
+    //todo: trigger global error
+
+    try {
+      console.log('Start of try runs');  // (1) <--
+
+      const number = 5;
+      number = 5 + 1; // error, variable is not defined!
+
+      console.log('End of try (never reached)');  // (2)
+
+      } catch (err) {
+        
+        console.log(`Error has occurred!`); // (3) <--
+      
+      }
+
+
+      class MyError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = this.constructor.name;
+  }
+}
+      
+      try {
+        throw new MyError("dont divide by 0");
+      } catch (err) {
+        console.error(err);
+      }
+    
+
+      window.onerror = function(message, source, lineno, colno, error) {console.log(message)};
   </script>
 </body>
 
